@@ -41,9 +41,9 @@ class ProductController extends Controller
 {
     $product = Product::where('id', $id)->first();
     $product->update([
-        'name' => $request->input('name'),
-        'price' => $request->input('price'),
-        'image' => $request->input('image'),
+        'name' => $request->name,
+        'price' => $request->price,
+        'image' => $request->image,
     ]);
 
     return redirect()->route('productIndex');
