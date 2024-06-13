@@ -29,7 +29,7 @@ Route::get('category/create', [CategoryController::class,'create'])->name('categ
 Route::post('category/store', [CategoryController::class,'store'])->name('categoryStore');
 Route::get('category/{id}', [CategoryController::class,'edit'])->name('categoryEdit');
 Route::post('category/update/{id}', [CategoryController::class,'update'])->name('categoryUpdate');
-Route::delete('category/delete', [CategoryController::class,'delete'])->name('categoryDelete');
+Route::post('category/delete/{id}', [CategoryController::class,'delete'])->name('categoryDelete');
 
 Route::get('product', [ProductController::class,'index'])->name('productIndex');
 Route::get('product/create', [ProductController::class,'create'])->name('productCreate');

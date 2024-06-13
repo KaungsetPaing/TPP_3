@@ -27,7 +27,10 @@
                 <td>{{$d->name}}</td>
                 <td>
                     <a href="{{route('categoryEdit',$d->id)}}">Edit</a>
-                    <a href="{{route('categoryDelete',$d->id)}}">Delete</a>
+                    <form action="{{route('categoryDelete',$d->id)}}" method="post">
+                    @csrf
+                        <button>Delete</button>
+                    </form>
                 </td>
             </tr>
         @endforeach
