@@ -9,31 +9,34 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css">
 </head>
 <body>
-    <h1>Products List</h1>
-    <a href="{{route('productCreate')}}">Create</a>
+    <h1>Articles List</h1>
+    <a href="{{route('article.create')}}">Create</a>
     <table class="table">
         <thead>
         <tr>
             <th scope="col">ID</th>
             <th scope="col">Name</th>
-            <th scope="col">Price</th>
-            <th scope="col">Image</th>
+            <th scope="col">Address</th>
+           
             <th> Action</th>
             
         </tr>
         </thead>
         <tbody>
-        @foreach($product_item as $p)
+        @foreach($article as $a)
             <tr>
-                <td>{{$p->id}}</td>
-                <td>{{$p->name}}</td>
-                <td>{{$p->price}}</td>
-                <td>{{$p->image}}</td>
+                <td>{{$a->id}}</td>
+                <td>{{$a->name}}</td>
+                <td>{{$a->address}}</td>
+                
                 <td>
-                    <a href="{{route('productEdit',$p->id)}}">Edit</a>
-                    <form action="{{route('productDelete',$p->id)}}" method="post">
+                    <a href="{{route('article.edit',$a->id)}}">Edit</a>
+
+                    <form action="{{ route('article.destroy', $a->id) }}" method="post">
+                 
                     @csrf
-                        <button>Delete</button>
+                    @method('DELETE')
+                    <button>Delete</button>
                     </form>
                 </td>
                
