@@ -9,4 +9,8 @@ class Product extends Model
 {
     use HasFactory;
     protected $fillable = ['id','name','price','image'];
+    public function images(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(ProductImage::class);
+    }
 }
