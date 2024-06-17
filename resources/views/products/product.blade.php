@@ -29,6 +29,7 @@
                 <td>{{$p->name}}</td>
                 <td>{{$p->price}}</td>
                 <td>
+                  
                     <!-- <img src="{{asset('images/'.$p->image)}}" alt="" width="80px" height="80px"> -->
                     @foreach($p->images as $image)
                         <img src="{{ asset('images/'.$image->image_path) }}" width="50px" height="50px">
@@ -37,8 +38,10 @@
                 
                 <td>
                     <a href="{{route('productEdit', ['id' => $p->id])}}" class="btn btn-info"  >Edit</a>
+
                     <form action="{{route('productDelete',$p->id)}}" method="post">
                     @csrf
+                  
                         <button class="btn btn-sm btn-danger">Delete</button>
                     </form>
                 </td>

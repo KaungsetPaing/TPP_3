@@ -14,7 +14,7 @@
     <label for="">Price</label>
     <input type="text" name="price" value="{{$product->price}}"><br><br>
     <label for="">Image</label>
-    <input type="file" name="image[]" multiple><br><br>
+    <input type="file" name="images[]" multiple><br><br>
     @foreach($product->images as $image)
         <img src="{{ asset('images/'.$image->image_path) }}" width="100px" height="100px">
      @endforeach

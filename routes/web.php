@@ -37,7 +37,7 @@ Route::get('product/create', [ProductController::class,'create'])->name('product
 Route::post('product/store', [ProductController::class,'store'])->name('productStore');
 Route::get('product/{id}', [ProductController::class,'edit'])->name('productEdit');
 Route::post('product/update/{id}', [ProductController::class,'update'])->name('productUpdate');
-Route::post('product/delete/{id}', [ProductController::class,'delete'])->name('productDelete');
+Route::post('product/delete/{productdelete}', [ProductController::class,'delete'])->name('productDelete');
 
 Route::resource('article', ArticleController::class);
 
