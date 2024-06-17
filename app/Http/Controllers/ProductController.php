@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
+use App\Models\ProductImage;
 use Faker\Provider\Lorem;
 use Illuminate\Http\Request;
 
@@ -11,7 +12,7 @@ class ProductController extends Controller
     public function index(){
 
 
-        $product_item = Product::all();
+        $product_item = Product::with('images')->get();
         return view('products.product', compact('product_item'));
     }
 
@@ -21,39 +22,103 @@ class ProductController extends Controller
     }
     public function store(Request $request)
     {
-       Product::create([
-        'name'=> $request->name,
-        'price'=> $request->price,
-        'image'=> $request->image,
 
-       ]);
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'price' => 'required|numeric',
+            'images.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048'
+        ]);
+        $product = Product::create($request->only('name','price'));
+
+        if ($request->hasFile('images')) {
+            foreach ($request->file('images') as $image) {
+                $filename = time() . '_' . $image->getClientOriginalName();
+                $path = $image->move(public_path('images'), $filename);
+                ProductImage::create([
+                    'product_id' => $product->id,
+                    'image_path' => $filename,
+                ]);
+            }
+        }
+
+        // if($request->file('image'))
+        // {
+        //     $image = $request->file('image');
+        //     $filename = time() .'.'. $image->getClientOriginalExtension();
+        //     $image->move('images', $filename);
+
+        //     Product::create([
+        //         'name'=> $request->name,
+        //         'price'=> $request->price,
+        //         'image'=> $filename,
+        //        ]);
+        // }else
+        // {
+        //     Product::create([
+        //         'name'=> $request->name,
+        //         'price'=> $request->price,
+               
+        //        ]);
+        // }
       return redirect()->route('productIndex');
     }
     public function edit($id)
     {
 
-        $product = Product:: where('id', $id)->first();
+        $product = Product::with('images')->find($id);
+        if (!$product) {
+            return redirect()->route('productIndex')->withErrors('Product not found.');
+        }
+
         return view('products.edit', compact('product'));
     }
 
 
     public function update(Request $request, $id)
 {
-    $product = Product::where('id', $id)->first();
-    $product->update([
-        'name' => $request->name,
-        'price' => $request->price,
-        'image' => $request->image,
+    $request->validate([
+        'name' => 'required|string|max:255',
+        'price' => 'required|numeric',
+        'images.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048'
     ]);
+
+    $product = Product::findOrFail($id);
+    $product->update($request->only('name', 'price'));
+
+    if ($request->hasFile('images')) {
+        foreach ($product->images as $image) {
+            $imagePath = public_path($image->image_path);
+            if (file_exists($imagePath)) {
+                unlink($imagePath);
+            }
+            $image->delete();
+        }
+
+        foreach ($request->file('images') as $image) {
+            $filename = time() . '_' . $image->getClientOriginalName();
+            $path = $image->move(public_path('images'), $filename);
+            ProductImage::create([
+                'product_id' => $product->id,
+                'image_path' => $filename,
+            ]);
+        }
+    }
 
     return redirect()->route('productIndex');
 }
 
-public function delete($id)
+public function delete(Product $productdelete)
 
 {
-  $data = Product::where('id', $id)->first();
-  $data->delete();
+    foreach ($productdelete->images as $image) {
+        $imagePath = public_path($image->image_path);
+        if (file_exists($imagePath)) {
+            unlink($imagePath);
+        }
+        $image->delete();
+    }
+
+  $productdelete->delete();
   return redirect()->route('productIndex');
 }
 

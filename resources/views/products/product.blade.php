@@ -28,12 +28,18 @@
                 <td>{{$p->id}}</td>
                 <td>{{$p->name}}</td>
                 <td>{{$p->price}}</td>
-                <td>{{$p->image}}</td>
                 <td>
-                    <a href="{{route('productEdit',$p->id)}}">Edit</a>
+                    <!-- <img src="{{asset('images/'.$p->image)}}" alt="" width="80px" height="80px"> -->
+                    @foreach($p->images as $image)
+                        <img src="{{ asset('images/'.$image->image_path) }}" width="50px" height="50px">
+                    @endforeach
+                </td>
+                
+                <td>
+                    <a href="{{route('productEdit', ['id' => $p->id])}}" class="btn btn-info"  >Edit</a>
                     <form action="{{route('productDelete',$p->id)}}" method="post">
                     @csrf
-                        <button>Delete</button>
+                        <button class="btn btn-sm btn-danger">Delete</button>
                     </form>
                 </td>
                
