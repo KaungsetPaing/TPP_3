@@ -29,6 +29,8 @@ class ProductController extends Controller
             'images.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048'
         ]);
         $product = Product::create($request->only('name','price'));
+        // $product = Product::create($request->all());
+        // $product = Product::create($request->validated());
 
         if ($request->hasFile('images')) {
             foreach ($request->file('images') as $image) {
