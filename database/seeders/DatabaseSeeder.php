@@ -17,11 +17,15 @@ class DatabaseSeeder extends Seeder
     {
         // User::factory(10)->create();
 
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@.com',
-            'password'=>Hash::make('1234567'),
-        ]);
+        // User::factory()->create([
+        //     'name' => 'Test User',
+        //     'email' => 'test@.com',
+        //     'password'=>Hash::make('1234567'),
+        // ]);
         // Category::factory(100)->create();
+        $this->call(PermissionTableSeeder::class);
+        $this->call(RoleTableSeeder::class);
+        $this->call(RolePermissionTableSeeder::class);
+        $this->call(UserTableSeeder::class);
     }
 }
