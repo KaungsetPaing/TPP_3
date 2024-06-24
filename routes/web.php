@@ -12,12 +12,12 @@ use Illuminate\Support\Facades\Route;
 
 // -----------------------------------------
 Route::get('/', function () {
-    return view('welcome');
+    return view('index');
 });
 
-Route::get('/startup', function () {
-    return 'Hello startup';
-});
+Route::get('/list', function () {
+    return view('list');
+})->name('list');
 
 //Route::get('/category', function () {
 //    return view('categories.index'); // ----------

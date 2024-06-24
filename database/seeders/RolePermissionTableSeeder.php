@@ -28,10 +28,6 @@ class RolePermissionTableSeeder extends Seeder
 
         $editorrole= Role::where('name','Editor')->first();
         $editorrole->syncPermissions([
-            'category_listing',
-            'category_create',
-            'category_edit',
-            'category_delete',
             'product_listing',
             'product_create',
             'product_edit',
