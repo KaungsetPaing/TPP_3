@@ -34,7 +34,7 @@ class StudentController extends Controller
             
         ]);
      
-            $student = Student::create($request->except('courses'));
+            $student = Student::create($request->all());
 
             $student->courses()->attach($request->input('courses'));
 
