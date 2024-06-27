@@ -65,6 +65,7 @@
                         <ul class="sub-menu children dropdown-menu">
                             <li><i class="fa fa-table"></i><a href="{{route('permissions.index')}}">Role</a></li>
                             <li><i class="fa fa-table"></i><a href="{{route('roles.index')}}">Permission</a></li>
+                            <li><i class="menu-icon fa fa-th"></i><a href="{{route('users.index')}}">Users</a></li>
                             <!-- <li><i class="fa fa-table"></i><a href="tables-data.html">Data Table</a></li> -->
                         </ul>
                     </li>
