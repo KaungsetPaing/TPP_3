@@ -2,23 +2,35 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Repository\Student\StudentRepositoryInterface;
+use App\Http\Repository\Course\CourseRepositoryinterface;
 use App\Models\Course;
 use App\Models\Student;
 use Illuminate\Http\Request;
 
 class StudentController extends Controller
 {
-    public function index(){
+    private StudentRepositoryInterface $studentRepository;
+    private CourseRepositoryinterface $CourseRepository;
 
-
-        $student = Student::with('courses')->get();
+    public function __construct(StudentRepositoryInterface $studentRepository,CourseRepositoryinterface $CourseRepository)
+        {
+            $this->studentRepository = $studentRepository;
+            $this->CourseRepository = $CourseRepository;
+        }
+        
+        
+    public function index()
+    {
+        // $student = Student::with('courses')->get();
+        $student = $this->studentRepository->all();
         return view('students.index', compact('student'));
     }
 
     public function create()
     {
-        $courses = Course::all();
-        
+        // $courses = Course::all();
+        $courses = $this->CourseRepository->all();
         return view('students.create', compact('courses'));
        
     }
@@ -34,7 +46,8 @@ class StudentController extends Controller
             
         ]);
      
-            $student = Student::create($request->all());
+            // $student = Student::create($request->all);
+            $student = $this->studentRepository->create($request->all());
 
             $student->courses()->attach($request->input('courses'));
 
