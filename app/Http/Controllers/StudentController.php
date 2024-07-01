@@ -38,13 +38,13 @@ class StudentController extends Controller
     public function store(Request $request)
     {
 
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'age' => 'required|numeric',
-            'phone' => 'required|integer',
-            'address' => 'required|string|max:255',
+        // $request->validate([
+        //     'name' => 'required|string|max:255',
+        //     'age' => 'required|numeric',
+        //     'phone' => 'required|integer',
+        //     'address' => 'required|string|max:255',
             
-        ]);
+        // ]);
      
             // $student = Student::create($request->all);
             $student = $this->studentRepository->create($request->all());

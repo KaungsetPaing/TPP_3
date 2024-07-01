@@ -17,7 +17,8 @@ class UserController extends Controller
         return view('role-permission.user.index', compact(['users', 'roles']));
     }
 
-    public function create(){
+    public function create()
+    {
 
     }
 
