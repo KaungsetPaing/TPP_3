@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Repository\Article\ArticleRepositoryInterface;
 use App\Models\Article;
 use Illuminate\Http\Request;
 
@@ -10,13 +11,20 @@ class ArticleController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function __construct()
+    // public function __construct()
+    // {
+    //     $this->middleware('auth');
+    // }  
+
+    private ArticleRepositoryInterface $articleRepository;
+    public function __construct(ArticleRepositoryInterface $articleRepository)
     {
-        $this->middleware('auth');
+        $this->articleRepository = $articleRepository;
     }
     public function index()
     {
-        $article = Article::all();
+        // $article = Article::all();
+        $article = $this->articleRepository->all();
         return view('articles.index', compact('article'));
     }
 
@@ -33,10 +41,11 @@ class ArticleController extends Controller
      */
     public function store(Request $request)
     {
-        Article::create([
-            'name' => $request->name,
-            'address' => $request->address,
-        ]);
+        // Article::create([
+        //     'name' => $request->name,
+        //     'address' => $request->address,
+        // ]);
+        $this->articleRepository->create($request->all());
         return redirect()->route('article.index');
     }
 
@@ -53,7 +62,8 @@ class ArticleController extends Controller
      */
     public function edit($id)
     {
-        $data = Article::where('id', $id)->first();
+        // $data = Article::where('id', $id)->first();
+        $data = $this->articleRepository->find($id);
         return view('articles.edit', compact('data'));
     }
 
@@ -62,13 +72,9 @@ class ArticleController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $data = Article::findOrFail($id);
-        $data->update([
-            'name' => $request->name,
-            'address'=> $request->address,
-           
-            
-        ]);
+        // $data = Article::findOrFail($id);
+        $data = $this->articleRepository->find($id);
+       $this->articleRepository->update($data, $request->all());
         return redirect()->route('article.index');
     }
 
@@ -77,7 +83,7 @@ class ArticleController extends Controller
      */
     public function destroy(Article $article)
     {
-        $article->delete();
+       $this->articleRepository->delete($article);
         return redirect()->route('article.index');
     }
 }
