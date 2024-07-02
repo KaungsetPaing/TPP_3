@@ -27,6 +27,7 @@ class RoleController extends Controller
         // return view('role-permission.role.index',[ // compact data to index.blade
         //     'roles' => $roles
         // ]);
+        
         $roles=$this->roleRepository->all();
          return view('role-permission.role.index',[ // compact data to index.blade
             'roles' => $roles
@@ -73,12 +74,12 @@ class RoleController extends Controller
     {
         $permissions = Permission::get();
         $role = Role::findOrFail($roleId);
-        // checked db data for checkbox
         $rolePermissions = DB::table("role_has_permissions")
             ->where('role_has_permissions.role_id', $roleId)
             ->pluck('role_has_permissions.permission_id','role_has_permissions.permission_id')
             ->all();
 
+       
         return view('role-permission.role.add-permissions',[
             'role' => $role,
             'permissions' => $permissions,
