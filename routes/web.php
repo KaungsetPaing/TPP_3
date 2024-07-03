@@ -3,6 +3,7 @@
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CourseController;
+use App\Http\Controllers\ObjectController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\RoleController;
@@ -70,3 +71,7 @@ Route::resource('student', StudentController::class);
 
 Route::resource('users', UserController::class);
 Route::get('users/{userID}/delete', [UserController::class,'destroy']);
+
+Route::resource('objects', ObjectController::class);
+Route::put('/objects/{id}', [ObjectController::class, 'update'])->name('objects.update');
+Route::delete('/objects/{id}', [ObjectController::class, 'delete'])->name('objects.delete');
