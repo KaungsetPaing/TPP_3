@@ -49,8 +49,8 @@ class ProudctController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $data = $this->productRepository->find($id);
-        $product=$this->productRepository->update( $data, $request->all());
+       
+        $product=$this->productRepository->update($request,$id);
         return response()->json($product);
 
     
