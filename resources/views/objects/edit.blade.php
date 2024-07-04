@@ -42,9 +42,9 @@
                 </h4>
             </div>
 
-            <form action="" method="POST" class="mx-4 my-2">
+            <form action="{{route('objects.update',$results->id)}}" method="POST" class="mx-4 my-2">
                 @csrf
-                @method('PUT')
+                @method('PATCH')
                 <div class="mb-3">
                     <label for="">Name</label>
                     <input type="text" name="name" value="{{$results->name}}" class="form-control" autocomplete="off"/>
@@ -53,7 +53,7 @@
                 @if ($results->data)
                 <div class="mb-3">
                     <label for="">Color</label>
-                    <input type="text" name="color" value="{{$results->data->color??''}}" class="form-control" autocomplete="off"/>
+                    <input type="text" name="data['color']" value="{{$results->data->color??'color is null'}}" class="form-control" autocomplete="off"/>
                     
                 </div>
                 <div class="mb-3">
@@ -63,7 +63,7 @@
                 </div>
                 <div class="mb-3">
                     <label for="">Price</label>
-                    <input type="text" name="price" value="{{$results->data->price??''}}" class="form-control" autocomplete="off"/>
+                    <input type="text" name="data['price]" value="{{$results->data->price??''}}" class="form-control" autocomplete="off"/>
                     
                 </div>
                 <div class="mb-3">

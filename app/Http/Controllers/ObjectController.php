@@ -31,7 +31,7 @@ class ObjectController extends Controller
     public function store(Request $request)
     {
         $client = new Client();
-        $response = $client->put($this->baseUrl().'objects',
+        $response = $client->post($this->baseUrl().'objects',
             [
                 'headers' => [ 'Content-Type' => 'application/json' ],
                 'body' => json_encode([
@@ -57,8 +57,7 @@ class ObjectController extends Controller
     public function update(Request $request, $id)
     {
         $client = new Client();
-
-        $response = $client->put($this->baseUrl().'objects/'.$id,
+        $response = $client->patch($this->baseUrl().'objects/'.$id,
             [
                 'headers' => [ 'Content-Type' => 'application/json' ],
                 'body' => json_encode([
