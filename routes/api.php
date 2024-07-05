@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\Auth\LoginController;
 use App\Http\Controllers\Api\CategoryController;
 
 use App\Http\Controllers\Api\ProudctController;
@@ -9,6 +10,8 @@ use Illuminate\Support\Facades\Route;
 Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
+
+Route::post('login', [LoginController::class, 'login']);
 
 Route::get('categorylist',[CategoryController::class,'index']);
 Route::post('categoryStore',[CategoryController::class,'store']);

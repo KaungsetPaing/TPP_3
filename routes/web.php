@@ -13,14 +13,14 @@ use App\Models\StudentCourse;
 use Illuminate\Support\Facades\Route;
 // '/' => home
 
-//Route::get('/', function () {
-//    return view('welcome');
-//});
+Route::get('/', function () {
+   return view('welcome');
+});
 
 // -----------------------------------------
-Route::get('/', function () {
-    return view('index');
-});
+// Route::get('/', function () {
+//     return view('index');
+// });
 
 Route::get('/list', function () {
     return view('list');
