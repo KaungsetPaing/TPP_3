@@ -12,5 +12,8 @@ interface RoleRepositoryInterface
 
     public function update(Request $request,  $id);
     public function delete($id);
+
+    
+
    
 }

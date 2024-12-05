@@ -3,6 +3,8 @@ namespace App\Http\Repository\Role;
 
 use App\Models\Role;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Spatie\Permission\Models\Permission;
 
 class RoleRepository implements RoleRepositoryInterface
 {
@@ -24,5 +26,6 @@ class RoleRepository implements RoleRepositoryInterface
         $role = Role::find($id);
         $role->delete();
     }
+   
 
 }
